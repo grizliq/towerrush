@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Rush играть онлайн</title>
+
+    <style>
+        /* 1. Подключение шрифтов */
+        @font-face {
+            font-family: 'Panton Narrow';
+            src: url('fonts/PantonNarrowDemo-Black.otf') format('opentype');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Etude Noire';
+            src: url('fonts/Etude Noire Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        /* 2. Глобальные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('images/fon.png'), 
+                              linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: cover, 20px 20px, 20px 20px;
+            background-position: top center, 0 0, 0 0;
+            background-repeat: no-repeat, repeat, repeat;
+            background-color: #ffffff;
+            background-attachment: fixed;
+            
+            font-family: 'Etude Noire', sans-serif;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            min-height: 100vh;
+        }
+
+        /* 3. Основной контейнер-обертка */
+        .page-wrapper {
+            max-width: 850px; /* Широкий сайт */
+            margin: 0 auto;
+            padding: 20px 0; 
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 40px; 
+        }
+        
+        a {
+            text-decoration: none;
+            display: inline-block; 
+        }
+        a img {
+            border: none;
+            vertical-align: middle; 
+            transition: transform 0.2s ease;
+        }
+        a:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 4. Стили для Хедера (Верхний блок) */
+        .hero {
+            padding-top: 0px; /* Лого "высоко" */
+            padding-bottom: 20px;
+        }
+
+        .hero .logo {
+            width: 350px; /* Лого "больше" */
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-family: 'Panton Narrow', sans-serif;
+            font-weight: 900;
+            font-size: 4.7rem; 
+            line-height: 1.2;
+            color: #333;
+            margin-bottom: 40px; /* Отступ надписи от кнопок */
+        }
+        
+        .hero h1 span {
+            color: #f9a602; 
+            font-size: 4.7rem; 
+        }
+
+        .hero-buttons {
+            /* margin-top: 25px; */
+        }
+
+        .hero-buttons a {
+            margin: 0 10px;
+        }
+        .hero-buttons img {
+            height: 54px; 
+        }
+
+
+        /* 5. Стили для секций */
+        h2 {
+            font-family: 'Panton Narrow', sans-serif;
+            font-weight: 900;
+            font-size: 3.2rem; 
+            color: #222;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        /* Секция "Об игре" */
+        .about-game {
+            padding: 0 20px; 
+        }
+
+        .about-game .about-content {
+            display: flex;
+            align-items: flex-start; 
+            justify-content: space-between;
+            gap: 15px; 
+            text-align: left;
+            background-color: #f5f5f5; 
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .about-game .about-text {
+            flex-basis: 55%; 
+            padding-top: 10px;
+        }
+
+        .about-game .about-text h3 {
+            font-family: 'Etude Noire', sans-serif; 
+            font-weight: 500; 
+            font-size: 2.1rem; 
+            color: #f9a602;
+            margin-bottom: 10px;
+        }
+        
+        .about-game .about-text p {
+             font-size: 1.2rem; 
+             line-height: 1.4;
+        }
+
+        .about-game .about-visual {
+            flex-basis: 40%; 
+            position: relative; 
+        }
+
+        .about-game .about-visual .building {
+            width: 100%;
+            display: block; 
+        }
+
+        /* *** ИСПРАВЛЕНИЕ: Кнопка "Испытать удачу" *** */
+        .about-game .about-visual .cta-button {
+            position: absolute;
+            
+            /* Возвращаем центрирование */
+            left: 50%;
+            transform: translateX(-50%);
+            
+            /* Сдвигаем вниз, чтобы перекрывать домик */
+            bottom: -5px; 
+            
+            /* Уменьшаем max-width */
+            max-width: 320px; 
+            
+            width: 100%; 
+        }
+        .about-game .about-visual .cta-button img {
+             width: 100%; 
+             display: block;
+        }
+
+        /* Секция "Как играть" */
+        .how-to-play {
+            padding: 0 20px; 
+        }
+
+        .how-to-play .steps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch; 
+            gap: 15px; 
+        }
+        
+        .how-to-play .step {
+            flex: 1; 
+            background-color: rgba(245, 245, 245, 0.7); 
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 30px 15px 15px 15px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            align-items: center;
+            min-height: 280px; 
+        }
+
+        .how-to-play .step-number {
+            position: absolute;
+            top: -15px; 
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f9a602; 
+            color: white;
+            font-family: 'Panton Narrow', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .how-to-play .step p {
+            font-size: 1.1rem; 
+            line-height: 1.4;
+            flex-grow: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            margin-bottom: 15px; 
+        }
+
+        .how-to-play .step .step-image {
+            width: 100px;
+            margin-top: auto; 
+        }
+
+        .how-to-play .step .step-button {
+            width: 100%;
+            max-width: 250px; 
+            margin-top: auto; 
+        }
+
+        /* 6. Стили для Футера (Подвал) */
+        .footer {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin-top: 70px;
+            border-radius: 10px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <header class="hero">
+            <img src="images/logo.png" alt="Tower Rush Logo" class="logo">
+            <h1>
+                ЗАРАБАТЫВАЙ ИГРАЯ В<br>
+                <span>ПРОСТУЮ ИГРУ!</span>
+            </h1>
+            <div class="hero-buttons">
+                <a href="https://lbgame777.xyz/1X28IQ"><img src="images/играть.png" alt="Играть"></a>
+                <a href="https://t.me/LuckyBearPlayBot"><img src="images/узнать.png" alt="Узнать"></a>
+            </div>
+        </header>
+
+        <main>
+
+            <section class="about-game">
+                <h2>ОБ ИГРЕ</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Интересная игра</h3>
+                        <p>Tower Rush - это быстрая и азартная игра, где ваша цель - построить самую высокую башню. С каждым новым этажом ваш выигрыш растет. Ваша интуиция подскажет, когда остановиться и забрать деньги!</p> 
+                    </div>
+                    <div class="about-visual">
+                        <img src="images/Subtract.png" alt="Tower Rush Building" class="building">
+                        <a href="https://lbgame777.xyz/1X28IQ" class="cta-button">
+                            <img src="images/испытать-удачу.png" alt="Испытать удачу">
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="how-to-play">
+                <h2>КАК ИГРАТЬ</h2>
+                <div class="steps-container">
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <p>Сделай ставку<br>и начни строить<br>башню.</p>
+                        <a href="https://t.me/LuckyBearPlayBot"><img src="images/строить.png" alt="Строить" class="step-button"></a>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <p>Каждый этаж<br>увеличивает<br>множитель.</p>
+                        <img src="images/X2.png" alt="X2 Множитель" class="step-image">
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <p>Реши: продолжать<br>или забрать<br>выигрыш.</p>
+                        <a href="https://t.me/LuckyBearPlayBot"><img src="images/Вывод.png" alt="Вывод" class="step-button"></a>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Играйте ответственно. Только для лиц старше 18 лет.</p>
+            <p>© 2025 tower rush. Все права защищены.</p>
+        </footer>
+
+    </div> 
+    
+    <script>
+        console.log("Сайт Tower Rush загружен!");
+    </script>
+
+</body>
+</html>
