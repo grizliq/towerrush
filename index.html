@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tower Rush играть онлайн</title>
-    <link rel="apple-touch-icon" href="images/ЛогоРыб.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <style>
         /* 1. Подключение шрифтов */
         @font-face {
@@ -160,20 +160,13 @@
             display: block; 
         }
 
-        /* *** ИСПРАВЛЕНИЕ: Кнопка "Испытать удачу" *** */
+        /* Кнопка "Испытать удачу" */
         .about-game .about-visual .cta-button {
             position: absolute;
-            
-            /* Возвращаем центрирование */
             left: 50%;
             transform: translateX(-50%);
-            
-            /* Сдвигаем вниз, чтобы перекрывать домик */
             bottom: -5px; 
-            
-            /* Уменьшаем max-width */
             max-width: 320px; 
-            
             width: 100%; 
         }
         .about-game .about-visual .cta-button img {
@@ -260,6 +253,88 @@
             color: #888;
             line-height: 1.5;
         }
+
+
+        /* ==========================================
+         7. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
+        ==========================================
+        */
+        
+        @media screen and (max-width: 850px) {
+            
+            /* Делаем сайт на всю ширину и добавляем отступы по бокам */
+            .page-wrapper {
+                max-width: 100%;
+                padding: 20px 15px;
+            }
+
+            /* Уменьшаем лого и верхний отступ */
+            .hero {
+                padding-top: 40px;
+            }
+            .hero .logo {
+                width: 260px;
+            }
+
+            /* Уменьшаем гигантские шрифты */
+            .hero h1 {
+                font-size: 2.8rem;
+                margin-bottom: 30px; /* Уменьшаем отступ */
+            }
+            .hero h1 span {
+                font-size: 2.8rem;
+            }
+
+            /* Уменьшаем кнопки в шапке */
+            .hero-buttons img {
+                height: 48px;
+            }
+
+            /* Уменьшаем заголовки секций */
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            /* Блок "Об игре": ставим в колонку */
+            .about-game .about-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .about-game .about-text,
+            .about-game .about-visual {
+                flex-basis: 100%; /* Занимают всю ширину */
+                width: 100%;
+            }
+            
+            /* Добавляем отступ снизу, чтобы кнопка не врезалась в след. секцию */
+            .about-game .about-visual {
+                margin-bottom: 40px; 
+            }
+            
+            /* Корректируем кнопку "Испытать удачу" для мобильных */
+            .about-game .about-visual .cta-button {
+                bottom: -20px; /* Поднимаем ее, т.к. картинка стала меньше */
+                max-width: 280px; /* Делаем чуть уже */
+            }
+
+            /* Блок "Как играть": ставим в колонку */
+            .how-to-play .steps-container {
+                flex-direction: column;
+                gap: 40px; /* Отступ между шагами */
+            }
+
+            /* Убираем фикс. высоту у шагов */
+            .how-to-play .step {
+                min-height: auto;
+                padding: 30px 20px 20px 20px;
+            }
+
+            .how-to-play .step-button {
+                max-width: 200px; /* Уменьшаем кнопки в шагах */
+            }
+
+        }
+
     </style>
 </head>
 
@@ -335,5 +410,4 @@
     </script>
 
 </body>
-
 </html>
