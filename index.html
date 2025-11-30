@@ -96,10 +96,6 @@
             font-size: 4.7rem; 
         }
 
-        .hero-buttons {
-            /* margin-top: 25px; */
-        }
-
         .hero-buttons a {
             margin: 0 10px;
         }
@@ -256,10 +252,100 @@
             line-height: 1.5;
         }
 
+        /* ==========================================
+           СТИЛИ ДЛЯ ВСПЛЫВАЮЩЕГО ОКНА (POPUP)
+           ==========================================
+        */
+        .popup-overlay {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Темный фон */
+            z-index: 9999; /* Поверх всего */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+        }
+        .popup-overlay.active .popup-box {
+            transform: scale(1);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .close-popup:hover {
+            color: #333;
+        }
+
+        .popup-img {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .popup-title {
+            font-family: 'Panton Narrow', sans-serif;
+            font-size: 1.8rem;
+            color: #f9a602;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .popup-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .popup-btn {
+            display: inline-block;
+            background-color: #f9a602;
+            color: white;
+            font-family: 'Panton Narrow', sans-serif;
+            font-size: 1.5rem;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(249, 166, 2, 0.4);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .popup-btn:hover {
+            background-color: #e09400;
+            transform: scale(1.05);
+        }
+
 
         /* ==========================================
-         7. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
-        ==========================================
+           7. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
+           ==========================================
         */
         
         @media screen and (max-width: 850px) {
@@ -406,12 +492,40 @@
         </footer>
 
     </div> 
+
+    <div id="bonusPopup" class="popup-overlay">
+        <div class="popup-box">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <img src="images/Subtract.png" alt="Домик" class="popup-img">
+            <div class="popup-title">ПОЗДРАВЛЯЕМ!</div>
+            <div class="popup-text">Вам доступно <br><b>20 бесплатных игр</b></div>
+            <a href="https://lbgame777.xyz/1X28IQ" class="popup-btn">ИГРАТЬ</a>
+        </div>
+    </div>
     
     <script>
         console.log("Сайт Tower Rush загружен!");
+
+        // Логика всплывающего окна
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var popup = document.getElementById('bonusPopup');
+                popup.style.display = 'flex';
+                // Небольшая задержка перед добавлением класса active для плавной анимации
+                setTimeout(function() {
+                    popup.classList.add('active');
+                }, 10);
+            }, 1500); // 1500 мс = 1.5 секунды задержка
+        });
+
+        function closePopup() {
+            var popup = document.getElementById('bonusPopup');
+            popup.classList.remove('active');
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 300); // Ждем окончания анимации перед скрытием
+        }
     </script>
 
 </body>
 </html>
-
-
