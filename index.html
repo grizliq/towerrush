@@ -506,16 +506,17 @@
     <script>
         console.log("Сайт Tower Rush загружен!");
 
-        // Логика всплывающего окна
-        window.addEventListener('load', function() {
+        // ИСПРАВЛЕННАЯ ЛОГИКА:
+        // Используем 'DOMContentLoaded' вместо 'load'. Это запускает таймер сразу как прочтется код,
+        // не дожидаясь картинок.
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 var popup = document.getElementById('bonusPopup');
                 popup.style.display = 'flex';
-                // Небольшая задержка перед добавлением класса active для плавной анимации
                 setTimeout(function() {
                     popup.classList.add('active');
                 }, 10);
-            }, 1500); // 1500 мс = 1.5 секунды задержка
+            }, 5000);
         });
 
         function closePopup() {
@@ -523,7 +524,7 @@
             popup.classList.remove('active');
             setTimeout(function() {
                 popup.style.display = 'none';
-            }, 300); // Ждем окончания анимации перед скрытием
+            }, 300); 
         }
     </script>
 
